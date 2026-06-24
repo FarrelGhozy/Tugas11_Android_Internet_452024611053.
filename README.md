@@ -4,8 +4,11 @@ Aplikasi Android yang menampilkan daftar user GitHub menggunakan Retrofit + Mosh
 
 ## Identitas
 
-- **Nama**: FAZY
+- **Nama**: Farrel Ghozy Affifudin
 - **NIM**: 452024611053
+- **Kelas**: TI5 A2
+- **Prodi**: Teknik Informatika
+- **Universitas**: Darussalam Gontor
 
 ## Screenshot
 
