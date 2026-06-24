@@ -66,16 +66,14 @@ com.example.tugas11/
 ```
 
 ## API
-**Base URL**: `https://jsonplaceholder.typicode.com/`
-**Endpoint**: `GET /photos`
-**Response**: `List<Photo>`
+**Base URL**: `https://api.github.com/`
+**Endpoint**: `GET /users`
+**Response**: `List<User>`
 ```json
 {
-  "albumId": 1,
+  "login": "mojombo",
   "id": 1,
-  "title": "accusamus beatae ad facilis cum similique qui sunt",
-  "url": "https://via.placeholder.com/600/92c952",
-  "thumbnailUrl": "https://via.placeholder.com/150/92c952"
+  "avatar_url": "https://avatars.githubusercontent.com/u/1?v=4"
 }
 ```
 

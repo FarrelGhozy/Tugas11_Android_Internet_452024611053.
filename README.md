@@ -1,6 +1,6 @@
 # Tugas11_Android_Internet_452024611053
 
-Aplikasi Android yang menampilkan daftar foto dari JSONPlaceholder API menggunakan Retrofit + Moshi + Coroutines + Glide + Jetpack Compose.
+Aplikasi Android yang menampilkan daftar user GitHub menggunakan Retrofit + Moshi + Coroutines + Glide + Jetpack Compose.
 
 ## Identitas
 
@@ -9,7 +9,11 @@ Aplikasi Android yang menampilkan daftar foto dari JSONPlaceholder API menggunak
 
 ## Screenshot
 
-> (Tambahkan screenshot atau GIF aplikasi di sini)
+### Loading State
+![Loading](screenshots/screenshot_loading.png)
+
+### Content Loaded
+![Content](screenshots/screenshot_content.png)
 
 ## Tech Stack
 
@@ -25,17 +29,20 @@ Aplikasi Android yang menampilkan daftar foto dari JSONPlaceholder API menggunak
 
 ## API
 
-**Endpoint**: `https://jsonplaceholder.typicode.com/photos`
+**Endpoint**: `https://api.github.com/users`
 
-Response berisi array objek `Photo` dengan field: `albumId`, `id`, `title`, `url`, `thumbnailUrl`.
+Response berisi array objek `User` dengan field: `login`, `id`, `avatar_url`.
+
+Awalnya menggunakan `https://jsonplaceholder.typicode.com/photos` tetapi gambar dari `via.placeholder.com` gagal dimuat karena TLS error di perangkat. Diganti ke GitHub Users API yang gambar avatarnya berfungsi dengan baik.
 
 ## Fitur
 
-- Menampilkan daftar foto (thumbnail + title) dari internet
+- Menampilkan daftar user GitHub (avatar + login) dari internet
 - Loading state dengan `CircularProgressIndicator`
 - Error state dengan pesan error
 - Placeholder image saat loading dan error image saat gagal
 - Glide `@BindingAdapter` kustom untuk pemuatan gambar
+- Avatar gambar berbentuk lingkaran (`CircleShape` + `circleCrop()`)
 
 ## Normal Permission vs Dangerous Permission
 

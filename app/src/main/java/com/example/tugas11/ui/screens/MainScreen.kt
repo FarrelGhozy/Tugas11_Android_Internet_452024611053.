@@ -8,15 +8,16 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -27,15 +28,15 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.bumptech.glide.Glide
-import androidx.compose.material3.ExperimentalMaterial3Api
 import com.example.tugas11.R
-import com.example.tugas11.model.Photo
+import com.example.tugas11.model.User
 import com.example.tugas11.ui.viewmodel.MainViewModel
-import com.example.tugas11.ui.viewmodel.PhotoUiState
+import com.example.tugas11.ui.viewmodel.UserUiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -45,7 +46,7 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("JSONPlaceholder Photos") },
+                title = { Text("GitHub Users") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primaryContainer,
                     titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
@@ -55,7 +56,7 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
     ) { innerPadding ->
         Box(modifier = Modifier.padding(innerPadding)) {
             when (val state = uiState) {
-                is PhotoUiState.Loading -> {
+                is UserUiState.Loading -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -63,7 +64,7 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
                         CircularProgressIndicator()
                     }
                 }
-                is PhotoUiState.Error -> {
+                is UserUiState.Error -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
@@ -75,14 +76,14 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
                         )
                     }
                 }
-                is PhotoUiState.Success -> {
+                is UserUiState.Success -> {
                     LazyColumn(
                         modifier = Modifier.fillMaxSize(),
                         verticalArrangement = Arrangement.spacedBy(8.dp),
                         contentPadding = androidx.compose.foundation.layout.PaddingValues(16.dp)
                     ) {
-                        items(state.photos) { photo ->
-                            PhotoItem(photo = photo)
+                        items(state.users) { user ->
+                            UserItem(user = user)
                         }
                     }
                 }
@@ -92,7 +93,7 @@ fun MainScreen(viewModel: MainViewModel = viewModel()) {
 }
 
 @Composable
-fun PhotoItem(photo: Photo) {
+fun UserItem(user: User) {
     Card(
         modifier = Modifier.fillMaxWidth(),
         elevation = CardDefaults.cardElevation(defaultElevation = 2.dp)
@@ -109,24 +110,24 @@ fun PhotoItem(photo: Photo) {
                 },
                 update = { imageView ->
                     Glide.with(imageView)
-                        .load(photo.thumbnailUrl)
+                        .load(user.avatarUrl)
                         .placeholder(R.drawable.ic_placeholder)
                         .error(R.drawable.ic_error)
-                        .centerCrop()
+                        .circleCrop()
                         .into(imageView)
                 },
-                modifier = Modifier.size(80.dp)
+                modifier = Modifier
+                    .size(64.dp)
+                    .clip(CircleShape)
             )
             Spacer(modifier = Modifier.width(12.dp))
-            Column(modifier = Modifier.weight(1f)) {
+            Column {
                 Text(
-                    text = photo.title,
-                    style = MaterialTheme.typography.titleSmall,
-                    maxLines = 2
+                    text = user.login,
+                    style = MaterialTheme.typography.titleMedium
                 )
-                Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = "Album #${photo.albumId} | ID: ${photo.id}",
+                    text = "ID: ${user.id}",
                     style = MaterialTheme.typography.bodySmall,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
