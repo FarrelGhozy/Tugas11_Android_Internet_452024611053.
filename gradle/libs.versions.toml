@@ -37,6 +37,7 @@ retrofit-converter-moshi = { group = "com.squareup.retrofit2", name = "converter
 
 # Moshi
 moshi = { group = "com.squareup.moshi", name = "moshi", version.ref = "moshi" }
+moshi-kotlin = { group = "com.squareup.moshi", name = "moshi-kotlin", version.ref = "moshi" }
 moshi-kotlin-codegen = { group = "com.squareup.moshi", name = "moshi-kotlin-codegen", version.ref = "moshi" }
 
 # Glide
